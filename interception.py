@@ -33,21 +33,28 @@ def calc_interception(line1, line2):
     return point, is_edge
 
 
+def check_cord(n, d):
+    is_d_0 = np.allclose(d, 0)
+    is_n_0 = np.allclose(n, 0)
+    if is_d_0 and is_n_0:
+        return True
+    if is_d_0:
+        return False
+    return 0 <= n / d <= 1
+
+
 def check_is_point_on_line(point, line):
     v = np.array(point)
     v1 = np.array(line[0])
     v2 = np.array(line[1])
     n = v - v1
     d = v2 - v1
-    if np.allclose(d[0], 0) or np.allclose(d[1], 0):
-        return False
-    if np.allclose(n[0], 0) and np.allclose(n[1], 0):
-        return True
-    t = n[0] / d[0]
-    return 0 <= t <= 1 and np.allclose(t, n[1] / d[1])
+    return check_cord(n[0], d[0]) and check_cord(n[1], d[1])
 
 
 if __name__ == '__main__':
+    assert (check_is_point_on_line((4.728862973760931, 4.999999999999998), [[4, 5], [5, 5]]))
+    assert(check_is_point_on_line((4, 2), [[5, 2], [4, 2]]))
     assert (not check_is_point_on_line((7, 4), [[2, 4], [3, 3]]))
     assert (check_is_point_on_line((4.666666666666668, 4.666666666666668), [[5, 4], [4, 6]]))
     assert (check_is_point_on_line((5, 4), [[5, 4], [4, 6]]))
