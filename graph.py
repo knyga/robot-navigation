@@ -24,10 +24,13 @@ class Vertex:
     def get_id(self):
         return self.id
 
-    def get_weight(self, neighbor_node_id):
-        if neighbor_node_id in self.adjacent:
-            return self.adjacent[neighbor_node_id]
+    def get_weight(self, neighbor_node_location):
+        if neighbor_node_location in self.adjacent:
+            return self.adjacent[neighbor_node_location]
         raise VertexNotFoundException
+
+    def exists(self, neighbor_node_location):
+        return neighbor_node_location in self.adjacent
 
 
 class Graph:
@@ -67,6 +70,9 @@ class Graph:
         if from_node_location in self.vert_dict:
             return self.vert_dict[from_node_location].get_weight(to_node_location)
         raise VertexNotFoundException
+
+    def exists(self, from_node_location, to_node_location):
+        return from_node_location in self.vert_dict and self.vert_dict[from_node_location].exists(to_node_location)
 
     def neighbors(self, node_location):
         if node_location in self.vert_dict:

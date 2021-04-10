@@ -3,16 +3,11 @@ from queue import PriorityQueue
 from graph_builder import build_graph_for_robot_data
 
 
-# Manhattan distance
-def heuristic(a, b):
-    return abs(a[0] - b[0]) + abs(a[1] - b[1])
-
-
 def find_shortest_path(graph, start, goal):
     frontier = PriorityQueue()
     frontier.put(start, 0)
-    came_from = dict()
-    cost_so_far = dict()
+    came_from = {}
+    cost_so_far = {}
     came_from[start] = None
     cost_so_far[start] = 0
 
@@ -22,13 +17,14 @@ def find_shortest_path(graph, start, goal):
         # if current == goal:
         #     break
 
-        for neighbor in graph.neighbors(current):
-            new_cost = cost_so_far[current] + graph.cost(current, neighbor)
-            if neighbor not in cost_so_far or new_cost < cost_so_far[neighbor]:
-                cost_so_far[neighbor] = new_cost
-                priority = new_cost + heuristic(goal, neighbor)
-                frontier.put(neighbor, priority)
-                came_from[neighbor] = current
+        for next in graph.neighbors(current):
+            new_cost = cost_so_far[current] + graph.cost(current, next)
+
+            if next not in cost_so_far or new_cost < cost_so_far[next]:
+                cost_so_far[next] = new_cost
+                priority = new_cost
+                frontier.put(next, priority)
+                came_from[next] = current
 
     path = [goal]
 
@@ -36,7 +32,6 @@ def find_shortest_path(graph, start, goal):
         path.append(came_from[path[-1]])
     path.reverse()
     return path, cost_so_far[goal]
-
 
 if __name__ == '__main__':
     import numpy as np
