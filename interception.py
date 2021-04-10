@@ -28,7 +28,8 @@ def calc_interception(line1, line2):
     if check_is_interception_exists(u_numerator, u_denominator):
         raise NoInterceptionException
     t = t_numerator / t_denominator
-    is_edge = t == 0 or t == 1 or u_numerator == 0 or u_numerator == u_denominator
+    is_edge = np.allclose(t, 0) or np.allclose(t, 1)\
+              or np.allclose(u_numerator, 0) or np.allclose(u_numerator, u_denominator)
     point = v1 + t * (v2 - v1)
     if is_edge and point in line2:
         is_edge = point in line1
