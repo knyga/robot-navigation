@@ -11,18 +11,18 @@ import sys
 import numpy as np
 import json
 
-from a_star import find_shortest_path
-from graph_builder import build_graph_for_robot_data
+from dijkstra import find_shortest_path
+from graph_explorer import GraphExplorer
 
 
 def find_path(start, finish, obstacles=[]):
-	graph = build_graph_for_robot_data({
+	explorer = GraphExplorer({
 		'start': start,
 		'finish': finish,
 		'obstacles': obstacles,
-	})
+	}, edge_limiter_name='auto')
 
-	path, cost = find_shortest_path(graph, tuple(start), tuple(finish))
+	path, cost = find_shortest_path(explorer.graph, tuple(start), tuple(finish))
 
 	return path
 
