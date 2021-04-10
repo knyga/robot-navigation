@@ -256,11 +256,7 @@ if __name__ == '__main__':
         'obstacles': [[[2, 2], [2, 4], [3, 3]], [[5, 4], [4, 6], [6, 5], [7, 4]]]
     })
     assert (len(g.vertices()) == 9)
-    print(sorted(g.neighbors((10, 10))))
-    assert (sorted(g.neighbors((10, 10))) == [
-        (4, 6),
-        (6, 5)
-    ])
+    assert (sorted(g.neighbors((10, 10))) == [(4, 6), (6, 5), (7, 4)])
     assert (g.cost((10, 10), (4, 6)) == np.sqrt((10 - 4) ** 2 + (10 - 6) ** 2))
     try:
         g.cost((10, 10), (5, 5))
