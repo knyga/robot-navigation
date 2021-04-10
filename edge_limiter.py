@@ -1,6 +1,5 @@
 def guess_edge_limiter(cnt):
     MAX_NO_LIMITER = 50
-    # cnt = sum([len(obstacle) for obstacle in robot_data['obstacles']])
     factor = int(cnt / MAX_NO_LIMITER)
     if 0 <= factor < 2:
         return None
@@ -55,15 +54,16 @@ if __name__ == '__main__':
     def read_json(name):
         with open(name) as json_file:
             robot_data = json.load(json_file)
+        robot_data['s'] = sum([len(obstacle) for obstacle in robot_data['obstacles']])
         return robot_data
 
-    assert (guess_edge_limiter(read_json('tests/robot-test-5.json')) is None)
-    assert (guess_edge_limiter(read_json('tests/robot-test-15.json')) is None)
-    assert (guess_edge_limiter(read_json('tests/robot-test-18.json')) is None)
-    assert (guess_edge_limiter(read_json('tests/robot-test-20.json')) is None)
-    assert (guess_edge_limiter(read_json('tests/robot-test-30.json')) == 'l1_norm_half')
-    assert(guess_edge_limiter(read_json('tests/robot-test-50.json')) == 'l1_norm_quarter')
-    assert (guess_edge_limiter(read_json('tests/robot-test-100.json')) == 'l1_norm_quarter')
+    assert (guess_edge_limiter(read_json('tests/robot-test-5.json')['s']) is None)
+    assert (guess_edge_limiter(read_json('tests/robot-test-15.json')['s']) is None)
+    assert (guess_edge_limiter(read_json('tests/robot-test-18.json')['s']) is None)
+    assert (guess_edge_limiter(read_json('tests/robot-test-20.json')['s']) is None)
+    assert (guess_edge_limiter(read_json('tests/robot-test-30.json')['s']) == 'l1_norm_half')
+    assert(guess_edge_limiter(read_json('tests/robot-test-50.json')['s']) == 'l1_norm_quarter')
+    assert (guess_edge_limiter(read_json('tests/robot-test-100.json')['s']) == 'l1_norm_quarter')
     assert(l1_norm_half_edge_limiter(
         ([12.913415113681303, 4.046380970957697], [43.25402915616585, 45.87877553738756]),
         {

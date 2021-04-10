@@ -23,12 +23,14 @@ The advantage of this method is that we can detect existence of intersection bef
 
 In the developed solution border's are not considered as an intersection, meaning that the line segment `[(0, 0), (1, 1)]` and `[(1, 1), (5, 5)]` do not intersect. 
 
-#### Iterative vertices exploration
+#### Iterative vertices exploration (removed)
 On the initial step we use all vertices of polygons we have.
 
 During the iteration we find intersection's on our path to the goal point.
 
 We repeat the iteration with found intersection points until we do not get new points.
+
+In the current implementation this approach was removed due to high resulting computational complexity. So far results rely only on edges.
 
 #### Connecting vertices
 We can connect vertices if the connectivity edge (line) doesn't intersect with obstacle polygon's and doesn't go through them.   
@@ -49,3 +51,6 @@ We do not need all edges and with some heuristics, or even without, we could exp
 
 #### Merge close vertices
 Sometimes we get vertices really close one to another. Merging them with some epsilon would reduce the vertices number with a trade-off for growing path distance, which would really depend on epsilon we choose.
+
+#### Limiting edge exploration
+Algorithm tries to build full distance matrix by default. It becomes too costy for relatively high count of vertices. Edge limiter is created to reduce the number of edges and try to build edge only with vertices which are relatively close depending of the graph.  

@@ -1,7 +1,5 @@
 from queue import PriorityQueue
 
-from graph_builder import build_graph_for_robot_data
-
 
 def find_shortest_path(graph, start, goal):
     frontier = PriorityQueue()
@@ -35,12 +33,13 @@ def find_shortest_path(graph, start, goal):
 
 if __name__ == '__main__':
     import numpy as np
+    from graph_explorer import GraphExplorer
 
-    g = build_graph_for_robot_data({
+    g = GraphExplorer({
         'start': [0, 0],
         'finish': [10, 10],
         'obstacles': [[[2, 2], [2, 4], [3, 3]], [[5, 4], [4, 6], [6, 5], [7, 4]]]
-    })
+    }).graph
 
 
     def calc_cost_from_path(path):
