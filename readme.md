@@ -40,6 +40,9 @@ We can connect vertices if the connectivity edge (line) doesn't intersect with o
 #### Weights
 Weight of the edge is l2 norm.
 
+#### Limiting edge exploration
+Algorithm tries to build full distance matrix by default. It becomes too costy for relatively high count of vertices. Edge limiter is created to reduce the number of edges and try to build edge only with vertices which are relatively close depending of the graph.  
+
 ### Path finding algorithm
 A* is the best solution for the context defined as we plan to build only one path.
 
@@ -54,5 +57,8 @@ We do not need all edges and with some heuristics, or even without, we could exp
 #### Merge close vertices
 Sometimes we get vertices really close one to another. Merging them with some epsilon would reduce the vertices number with a trade-off for growing path distance, which would really depend on epsilon we choose.
 
-#### Limiting edge exploration
-Algorithm tries to build full distance matrix by default. It becomes too costy for relatively high count of vertices. Edge limiter is created to reduce the number of edges and try to build edge only with vertices which are relatively close depending of the graph.  
+#### Smart obstacle selection
+At this point we iterate though all obstacle polygons in the original order. If we would be starting from closest polygons we would be able to reduce the complexity.
+
+#### Interception calculation optimization
+We can check max/min values of lines before performing real comparation.
