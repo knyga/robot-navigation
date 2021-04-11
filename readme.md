@@ -2,6 +2,8 @@
 Develop a software function that takes as an input two vectors that represent the initial and the final position of the robot and the list of obstacles represented by init final convex polygons.
 The function needs to return a polyline (the list of vectors) that starts with the initial vector and finishes with the final vector and must not intersect the given obstacles.
 
+![Test set with 100 obstacles](./tests/visual_results/100.png)
+
 ## Solution
 The idea is to construct a graph and then execute some path finding algorithm.
 
